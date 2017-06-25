@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "198181996759",
+    "firebase_url": "https://contacerta-3c038.firebaseio.com",
+    "project_id": "contacerta-3c038",
+    "storage_bucket": "contacerta-3c038.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198181996759:android:e0082b54175bc958",
+        "android_client_info": {
+          "package_name": "br.unifor.victor.contacerta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198181996759-gsmstomrhk16sn6ja8jaknfc8n8qq3rv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.unifor.victor.contacerta",
+            "certificate_hash": "2dc317f30db2462115950e67743d729ff2625b43"
+          }
+        },
+        {
+          "client_id": "198181996759-06t5f638smh7n154gl32dh219vu6suns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdcpetgV6Uew-ZBEZ-3BWirp3obuirEMk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198181996759-06t5f638smh7n154gl32dh219vu6suns.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
