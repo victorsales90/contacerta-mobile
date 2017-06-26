@@ -135,48 +135,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    private void novaConta2() {
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-//
-//        // configurações dialog
-//        alertDialog.setTitle("Identificador da Conta");
-//        alertDialog.setCancelable(false);
-//
-//        // configura editText
-//        final EditText edtNovaConta2 = new EditText(MainActivity.this);
-//        alertDialog.setView(edtNovaConta2);
-//
-//        // configura botões
-//
-//        alertDialog.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//                identificadorConta = edtNovaConta2.getText().toString();
-//                if (identificadorConta.isEmpty()) {
-//                    Toast.makeText(MainActivity.this, "Preencha o identificador", Toast.LENGTH_SHORT).show();
-//
-//                } else {
-//
-//                    firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").child(identificadorConta).setValue(true);
-//
-//                }
-//
-//
-//            }
-//        });
-//
-//        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//        alertDialog.create();
-//        alertDialog.show();
-//
-//
-//    }
+    private void novaConta2() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+
+        // configurações dialog
+        alertDialog.setTitle("Identificador da Conta");
+        alertDialog.setCancelable(false);
+
+        // configura editText
+        final EditText edtNovaConta2 = new EditText(MainActivity.this);
+        alertDialog.setView(edtNovaConta2);
+
+        // configura botões
+
+        alertDialog.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                identificadorConta = edtNovaConta2.getText().toString();
+                if (identificadorConta.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Preencha o identificador", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").child(identificadorConta).setValue(true);
+
+                }
+
+
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.create();
+        alertDialog.show();
+
+
+    }
 
     private void abrirCadastroProduto() {
 
