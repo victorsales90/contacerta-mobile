@@ -143,7 +143,8 @@ public class ContatosFragment extends Fragment {
                         Log.i("*****CONTA POR PESSOA nome******", String.valueOf(contatos.get(position).getNome()));
                         Log.i("*****CONTA POR PESSOA valor******", String.valueOf(contatos.get(position).getValorConta()));
 
-                        Toast.makeText(getActivity(), "A conta da " + contatos.get(position).getNome() + " é " + contaPessoa , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "A conta da " + contatos.get(position).getNome() + " é " + String.valueOf(contatos.get(position).getValorConta()) , Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), "A conta da " + contatos.get(position).getNome() + " é " + contaPessoa , Toast.LENGTH_LONG).show();
                         contaPessoa = 0.0;
                         contaPessoa2 = 0.0;
 
