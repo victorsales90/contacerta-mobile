@@ -215,8 +215,10 @@ public class MainActivity extends AppCompatActivity {
                     Preferencias preferencias = new Preferencias(MainActivity.this);
                     final String identificadorUsuarioLogado = preferencias.getIdentificador();
 
-                    String[] pessoasPorProdutos2 = {"am9hb0BnbWFpbC5jb20=", "am9hb0BnbWFpbC5jb20d","am9hb0BnbWFpbC5jb20f"};
-                    Arrays.asList(pessoasPorProdutos2);
+                    pessoasPorProdutos2.add("am9hb0BnbWFpbC5jb20=");
+                    pessoasPorProdutos2.add("am9hb0BnbWFpbC5jb204");
+                    pessoasPorProdutos2.add("am9hb0BnbWFpbC5jb20w");
+
 
                     produto = new Produto();
                     produto.setNome(nomeProduto);
