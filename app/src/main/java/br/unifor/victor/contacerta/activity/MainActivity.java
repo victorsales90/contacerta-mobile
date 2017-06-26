@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         View alertLayout = inflater.inflate(R.layout.layout_custom_dialog, null);
         final EditText etNome = (EditText) alertLayout.findViewById(R.id.nome_produto);
         final EditText etPreco = (EditText) alertLayout.findViewById(R.id.preco_produto);
+        final EditText etPessoasConsumo = (EditText) alertLayout.findViewById(R.id.pessoas_consumo);
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         // this is set the view from XML inside AlertDialog
@@ -204,6 +205,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String nomeProduto = etNome.getText().toString();
                 String precoProduto = etPreco.getText().toString();
+                String pessoasConsumo = etPessoasConsumo.getText().toString();
+
+
                 String idPessoaProduto = identificadorUsuarioLogado;
 
 
@@ -215,9 +219,9 @@ public class MainActivity extends AppCompatActivity {
                     Preferencias preferencias = new Preferencias(MainActivity.this);
                     final String identificadorUsuarioLogado = preferencias.getIdentificador();
 
-                    pessoasPorProdutos2.add("am9hb0BnbWFpbC5jb20=");
-                    pessoasPorProdutos2.add("am9hb0BnbWFpbC5jb204");
-                    pessoasPorProdutos2.add("am9hb0BnbWFpbC5jb20w");
+                    pessoasPorProdutos2.add("dmljdG9yQGdtYWlsLmNvbQ==");
+                    pessoasPorProdutos2.add(pessoasConsumo);
+
 
 
                     produto = new Produto();

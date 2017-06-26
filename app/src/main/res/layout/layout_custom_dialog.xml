@@ -30,7 +30,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="Refri, pizza..."
+        android:hint="Refrigerante, pizza..."
         android:inputType="textPersonName" />
 
     <TextView
@@ -52,5 +52,13 @@
         android:hint="15.00"
         android:inputType="numberDecimal"
         android:text="" />
+
+    <EditText
+        android:id="@+id/pessoas_consumo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="bWFyaWFAZ21haWwuY29t" />
 
 </LinearLayout>

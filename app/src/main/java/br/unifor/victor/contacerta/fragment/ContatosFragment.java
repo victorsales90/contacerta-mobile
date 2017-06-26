@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.unifor.victor.contacerta.R;
 import br.unifor.victor.contacerta.activity.MainActivity;
@@ -40,6 +41,8 @@ public class ContatosFragment extends Fragment {
     private String codContaFirebase;
     String identificadorUsuarioLogado;
     private double contaPessoa;
+    private double contaPessoa2;
+    private int numeroPessoasPorPedido;
 
 
     public ContatosFragment() {
@@ -113,20 +116,38 @@ public class ContatosFragment extends Fragment {
                             produtos1.add(produto1);
                             String x = contatos.get(position).getIdentificadorUsuario();
                             String y = produto1.getIdPessoaProduto().toString();
+                            List<String> ppp = produto1.getPessoasPorProdutos();
+                            numeroPessoasPorPedido = ppp.size();
+
+                            //pecorrendo lista de pessoas que compartilham produto
+                            for(int i=0;i<ppp.size();i++){
+                                Log.i("*****VALOR DO LIST******", ppp.get(i).toString());
+
+                                if (x.equals(ppp.get(i).toString())){
+                                    contaPessoa2 += Double.parseDouble(produto1.getValor());
+
+                                }
+
+                            }
+
+
+
                             if (x.equals(y)){
                                contaPessoa += Double.parseDouble(produto1.getValor());
                             }
 
-
                         }
+
+                        contaPessoa2 = contaPessoa2/numeroPessoasPorPedido;
+                        contatos.get(position).setValorConta(contaPessoa2);
+                        Log.i("*****CONTA POR PESSOA nome******", String.valueOf(contatos.get(position).getNome()));
+                        Log.i("*****CONTA POR PESSOA valor******", String.valueOf(contatos.get(position).getValorConta()));
+
                         Toast.makeText(getActivity(), "A conta da " + contatos.get(position).getNome() + " é " + contaPessoa , Toast.LENGTH_LONG).show();
                         contaPessoa = 0.0;
-
-
+                        contaPessoa2 = 0.0;
 
                     }
-
-
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

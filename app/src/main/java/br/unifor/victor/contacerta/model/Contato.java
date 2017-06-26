@@ -11,6 +11,7 @@ public class Contato {
     private String identificadorUsuario;
     private String nome;
     private String email;
+    private Double valorConta;
 
     public Contato() {
     }
@@ -21,6 +22,14 @@ public class Contato {
 
     public void setIdentificadorUsuario(String identificadorUsuario) {
         this.identificadorUsuario = identificadorUsuario;
+    }
+
+    public Double getValorConta() {
+        return valorConta;
+    }
+
+    public void setValorConta(Double valorConta) {
+        this.valorConta = valorConta;
     }
 
     public String getNome() {
