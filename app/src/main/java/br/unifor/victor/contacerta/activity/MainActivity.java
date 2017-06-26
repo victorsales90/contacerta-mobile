@@ -23,6 +23,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import br.unifor.victor.contacerta.R;
 import br.unifor.victor.contacerta.adapter.TabAdapter;
 import br.unifor.victor.contacerta.config.ConfiguracaoFirebase;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private Button botaoSair;
     private Contato contato2;
     private Produto produto;
+    private List<String> pessoasPorProdutos2 = new ArrayList<String>();
 
 
     @Override
@@ -135,48 +140,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void novaConta2() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-
-        // configurações dialog
-        alertDialog.setTitle("Identificador da Conta");
-        alertDialog.setCancelable(false);
-
-        // configura editText
-        final EditText edtNovaConta2 = new EditText(MainActivity.this);
-        alertDialog.setView(edtNovaConta2);
-
-        // configura botões
-
-        alertDialog.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                identificadorConta = edtNovaConta2.getText().toString();
-                if (identificadorConta.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Preencha o identificador", Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").child(identificadorConta).setValue(true);
-
-                }
-
-
-            }
-        });
-
-        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        alertDialog.create();
-        alertDialog.show();
-
-
-    }
+//    private void novaConta2() {
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+//
+//        // configurações dialog
+//        alertDialog.setTitle("Identificador da Conta");
+//        alertDialog.setCancelable(false);
+//
+//        // configura editText
+//        final EditText edtNovaConta2 = new EditText(MainActivity.this);
+//        alertDialog.setView(edtNovaConta2);
+//
+//        // configura botões
+//
+//        alertDialog.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//                identificadorConta = edtNovaConta2.getText().toString();
+//                if (identificadorConta.isEmpty()) {
+//                    Toast.makeText(MainActivity.this, "Preencha o identificador", Toast.LENGTH_SHORT).show();
+//
+//                } else {
+//
+//                    firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").child(identificadorConta).setValue(true);
+//
+//                }
+//
+//
+//            }
+//        });
+//
+//        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//        alertDialog.create();
+//        alertDialog.show();
+//
+//
+//    }
 
     private void abrirCadastroProduto() {
 
@@ -210,11 +215,14 @@ public class MainActivity extends AppCompatActivity {
                     Preferencias preferencias = new Preferencias(MainActivity.this);
                     final String identificadorUsuarioLogado = preferencias.getIdentificador();
 
+                    String[] pessoasPorProdutos2 = {"am9hb0BnbWFpbC5jb20=", "am9hb0BnbWFpbC5jb20d","am9hb0BnbWFpbC5jb20f"};
+                    Arrays.asList(pessoasPorProdutos2);
 
                     produto = new Produto();
                     produto.setNome(nomeProduto);
                     produto.setValor(precoProduto);
                     produto.setIdPessoaProduto(identificadorUsuarioLogado);
+                    produto.setPessoasPorProdutos(pessoasPorProdutos2);
                     idProduto = Base64Custom.codificarParaBase64(nomeProduto);
 
                     firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").addListenerForSingleValueEvent(new ValueEventListener() {

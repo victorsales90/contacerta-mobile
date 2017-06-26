@@ -1,5 +1,7 @@
 package br.unifor.victor.contacerta.model;
 
+import java.util.List;
+
 /**
  * Created by victo on 09/06/2017.
  */
@@ -10,8 +12,18 @@ public class Produto {
     String valor;
     String idProduto;
     String idPessoaProduto;
+    List<String> pessoasPorProdutos;
 
     public Produto() {
+    }
+
+
+    public List<String> getPessoasPorProdutos() {
+        return pessoasPorProdutos;
+    }
+
+    public void setPessoasPorProdutos(List<String> pessoasPorProdutos) {
+        this.pessoasPorProdutos = pessoasPorProdutos;
     }
 
     public String getNome() {
