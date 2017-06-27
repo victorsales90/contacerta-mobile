@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
                 abrirCadastroProduto();
                 return true;
 
+            case R.id.item_pesquisa2:
+                abrirCadastroProduto2();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -140,125 +144,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    private void novaConta2() {
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-//
-//        // configurações dialog
-//        alertDialog.setTitle("Identificador da Conta");
-//        alertDialog.setCancelable(false);
-//
-//        // configura editText
-//        final EditText edtNovaConta2 = new EditText(MainActivity.this);
-//        alertDialog.setView(edtNovaConta2);
-//
-//        // configura botões
-//
-//        alertDialog.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//                identificadorConta = edtNovaConta2.getText().toString();
-//                if (identificadorConta.isEmpty()) {
-//                    Toast.makeText(MainActivity.this, "Preencha o identificador", Toast.LENGTH_SHORT).show();
-//
-//                } else {
-//
-//                    firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").child(identificadorConta).setValue(true);
-//
-//                }
-//
-//
-//            }
-//        });
-//
-//        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//        alertDialog.create();
-//        alertDialog.show();
-//
-//
-//    }
 
     private void abrirCadastroProduto() {
 
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.layout_custom_dialog, null);
-        final EditText etNome = (EditText) alertLayout.findViewById(R.id.nome_produto);
-        final EditText etPreco = (EditText) alertLayout.findViewById(R.id.preco_produto);
-        final EditText etPessoasConsumo = (EditText) alertLayout.findViewById(R.id.pessoas_consumo);
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-
-
-        // configura botões
-        alert.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                String nomeProduto = etNome.getText().toString();
-                String precoProduto = etPreco.getText().toString();
-                String pessoasConsumo = etPessoasConsumo.getText().toString();
-
-
-                String idPessoaProduto = identificadorUsuarioLogado;
-
-
-                if (nomeProduto.isEmpty() || precoProduto.isEmpty() ) {
-                    Toast.makeText(MainActivity.this, "Olá, você esqueceu de prencher os campos.", Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    Preferencias preferencias = new Preferencias(MainActivity.this);
-                    final String identificadorUsuarioLogado = preferencias.getIdentificador();
-
-                    pessoasPorProdutos2.add("dmljdG9yQGdtYWlsLmNvbQ==");
-                    pessoasPorProdutos2.add(pessoasConsumo);
-
-
-
-                    produto = new Produto();
-                    produto.setNome(nomeProduto);
-                    produto.setValor(precoProduto);
-                    produto.setIdPessoaProduto(identificadorUsuarioLogado);
-                    produto.setPessoasPorProdutos(pessoasPorProdutos2);
-                    idProduto = Base64Custom.codificarParaBase64(nomeProduto);
-
-                    firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot todasContas: dataSnapshot.getChildren()){
-                                codContaFirebase = todasContas.getKey();
-
-                                firebase.child("contas").child(codContaFirebase).child("produtos").child(idProduto).setValue(produto);
-
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
-            }
-        });
-
-        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        alert.create();
-        alert.show();
+        Intent it5 = new Intent(MainActivity.this, NovoProdutoActivity.class);
+        startActivity(it5);
 
     }
 
@@ -394,6 +284,85 @@ public class MainActivity extends AppCompatActivity {
 
     public String getMyCodConta() {
         return codContaGlobal;
+    }
+
+    private void abrirCadastroProduto2() {
+
+
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.layout_custom_dialog, null);
+
+        final EditText etNome = (EditText) alertLayout.findViewById(R.id.nome_produto);
+        final EditText etPreco = (EditText) alertLayout.findViewById(R.id.preco_produto);
+        final EditText etPessoasConsumo = (EditText) alertLayout.findViewById(R.id.pessoas_consumo);
+
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+
+
+        // configura botões
+        alert.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String nomeProduto = etNome.getText().toString();
+                String precoProduto = etPreco.getText().toString();
+                String pessoasConsumo = etPessoasConsumo.getText().toString();
+                String idPessoaProduto = identificadorUsuarioLogado;
+
+
+
+                if (nomeProduto.isEmpty() || precoProduto.isEmpty() ) {
+                    Toast.makeText(MainActivity.this, "Ops, você esqueceu de prencher os campos.", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Preferencias preferencias = new Preferencias(MainActivity.this);
+                    final String identificadorUsuarioLogado = preferencias.getIdentificador();
+
+                    pessoasPorProdutos2.add("dmljdG9yQGdtYWlsLmNvbQ==");
+                    pessoasPorProdutos2.add(pessoasConsumo);
+
+                    produto = new Produto();
+                    produto.setNome(nomeProduto);
+                    produto.setValor(precoProduto);
+                    produto.setIdPessoaProduto(identificadorUsuarioLogado);
+                    produto.setPessoasPorProdutos(pessoasPorProdutos2);
+                    idProduto = Base64Custom.codificarParaBase64(nomeProduto);
+
+                    firebase.child("usuarios").child(identificadorUsuarioLogado).child("minhascontas").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot todasContas: dataSnapshot.getChildren()){
+                                codContaFirebase = todasContas.getKey();
+
+                                firebase.child("contas").child(codContaFirebase).child("produtos").child(idProduto).setValue(produto);
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alert.create();
+        alert.show();
+
     }
 
 }
