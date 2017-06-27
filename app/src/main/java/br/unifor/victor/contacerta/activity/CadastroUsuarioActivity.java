@@ -21,6 +21,8 @@ import br.unifor.victor.contacerta.helper.Base64Custom;
 import br.unifor.victor.contacerta.helper.Preferencias;
 import br.unifor.victor.contacerta.model.Usuario;
 
+//
+
 public class CadastroUsuarioActivity extends AppCompatActivity {
 
     private EditText nome;
