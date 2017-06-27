@@ -19,6 +19,8 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CadastroUsuarioActivity" />
         <activity android:name=".activity.NovaContaActivity"></activity>
+        <activity android:name=".activity.NovoProdutoActivity"></activity>
+
     </application>
 
 </manifest>
