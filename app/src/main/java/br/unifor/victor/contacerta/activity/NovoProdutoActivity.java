@@ -45,6 +45,7 @@ public class NovoProdutoActivity extends AppCompatActivity {
     private ArrayAdapter adapterConsumidores;
     private String codContaGlobal;
     private Intent it5;
+    private boolean selecionarConsumidor;
 
 
 
@@ -122,6 +123,8 @@ public class NovoProdutoActivity extends AppCompatActivity {
                 DataModel dataModel= consumidores.get(position);
                 dataModel.checked = !dataModel.checked;
                 adapterConsumidores.notifyDataSetChanged();
+                selecionarConsumidor = true;
+
 
 
             }
@@ -144,10 +147,17 @@ public class NovoProdutoActivity extends AppCompatActivity {
 
 
 
-                if (nomeProduto.isEmpty() || precoProduto.isEmpty() ) {
+
+                if (nomeProduto.isEmpty() || precoProduto.isEmpty()  ) {
                     Toast.makeText(NovoProdutoActivity.this, "Ops! Você esqueceu de prencher os campos.", Toast.LENGTH_SHORT).show();
 
-                } else {
+                }
+
+                else if (!selecionarConsumidor) {
+                    Toast.makeText(NovoProdutoActivity.this, "Selecione pelo menos um consumidor.", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
 
 
                     for(int i=0;i<contatos.size();i++){
@@ -181,10 +191,10 @@ public class NovoProdutoActivity extends AppCompatActivity {
 
                         }
                     });
-
+                    finish();
                 }
 
-                finish();
+
 
             }
         });
