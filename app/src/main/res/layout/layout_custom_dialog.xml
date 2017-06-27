@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
@@ -54,6 +54,8 @@
         android:inputType="numberDecimal"
         android:text="" />
 
+
+
     <EditText
         android:id="@+id/pessoas_consumo"
         android:layout_width="match_parent"
@@ -62,10 +64,23 @@
         android:layout_marginRight="16dp"
         android:text="bWFyaWFAZ21haWwuY29t" />
 
-    <ListView
-        android:id="@+id/lv_checkbox"
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Preço"
+        android:textColor="@android:color/white" />
+
+    <ListView
+        android:id="@+id/lv_consumidores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
+
 
 
 </LinearLayout>

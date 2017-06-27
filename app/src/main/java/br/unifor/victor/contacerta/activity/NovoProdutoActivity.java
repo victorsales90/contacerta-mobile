@@ -1,8 +1,10 @@
 package br.unifor.victor.contacerta.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +26,7 @@ import br.unifor.victor.contacerta.adapter.CustomAdapter;
 import br.unifor.victor.contacerta.config.ConfiguracaoFirebase;
 import br.unifor.victor.contacerta.helper.Base64Custom;
 import br.unifor.victor.contacerta.helper.Preferencias;
+import br.unifor.victor.contacerta.model.Contato;
 import br.unifor.victor.contacerta.model.DataModel;
 import br.unifor.victor.contacerta.model.Produto;
 
@@ -36,9 +39,12 @@ public class NovoProdutoActivity extends AppCompatActivity {
     private String idProduto;
     private String codContaFirebase;
     private ArrayList<DataModel> consumidores;
+    private ArrayList<Contato> contatos;
     private List<String> pessoasPorProdutos2 = new ArrayList<String>();
     private ListView listViewConsumidores;
     private ArrayAdapter adapterConsumidores;
+    private String codContaGlobal;
+    private Intent it5;
 
 
 
@@ -57,25 +63,50 @@ public class NovoProdutoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_novo_produto);
      //   toolbar = (Toolbar) findViewById(R.id.toolbar);
      //   toolbar.setTitle("Conta Certa");
+
+
+        it5 = getIntent();
+        codContaGlobal = it5.getStringExtra("idconta");
+        Log.i("******TELA NOVO PROD******", codContaGlobal);
+
         firebase = ConfiguracaoFirebase.getFirebase();
+        // instanciar objetos
+        contatos = new ArrayList<>();
+
+        // recuperar contatos do firebase
+        Preferencias preferencias = new Preferencias(NovoProdutoActivity.this);
+        identificadorUsuarioLogado = preferencias.getIdentificador();
+
+
 
         listViewConsumidores = (ListView) findViewById(R.id.lv_consumidores2);
 
         consumidores = new ArrayList<>();
-        consumidores.add(new DataModel("Apple Pie", false));
-        consumidores.add(new DataModel("Banana Bread", false));
-        consumidores.add(new DataModel("Cupcake", false));
-        consumidores.add(new DataModel("Donut", true));
-        consumidores.add(new DataModel("Eclair", true));
-        consumidores.add(new DataModel("Froyo", true));
-        consumidores.add(new DataModel("Gingerbread", true));
-        consumidores.add(new DataModel("Honeycomb", false));
-        consumidores.add(new DataModel("Ice Cream Sandwich", false));
-        consumidores.add(new DataModel("Jelly Bean", false));
-        consumidores.add(new DataModel("Kitkat", false));
-        consumidores.add(new DataModel("Lollipop", false));
-        consumidores.add(new DataModel("Marshmallow", false));
-        consumidores.add(new DataModel("Nougat", false));
+
+
+
+        firebase.child("contas").child(codContaGlobal).child("contatos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // limpar lista
+                contatos.clear();
+
+                // listar contatos
+                for (DataSnapshot dados: dataSnapshot.getChildren()){
+                    Contato contato = dados.getValue(Contato.class);
+                    contatos.add(contato);
+                    consumidores.add(new DataModel(contato.getNome(), false, contato.getIdentificadorUsuario()));
+
+                }
+                adapterConsumidores.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         // monta listview e adapter
 //        listViewConsumidores = (ListView) findViewById(R.id.lv_consumidores2);
@@ -98,7 +129,7 @@ public class NovoProdutoActivity extends AppCompatActivity {
 
         final EditText etNome = (EditText) findViewById(R.id.nome_produto2);
         final EditText etPreco = (EditText) findViewById(R.id.preco_produto2);
-        final EditText etPessoasConsumo = (EditText) findViewById(R.id.pessoas_consumo2);
+      //  final EditText etPessoasConsumo = (EditText) findViewById(R.id.pessoas_consumo2);
         Button btSalvar = (Button) findViewById(R.id.bt_salvar_produto);
 
         btSalvar.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +139,7 @@ public class NovoProdutoActivity extends AppCompatActivity {
 
                 String nomeProduto = etNome.getText().toString();
                 String precoProduto = etPreco.getText().toString();
-                String pessoasConsumo = etPessoasConsumo.getText().toString();
+               // String pessoasConsumo = etPessoasConsumo.getText().toString();
                 String idPessoaProduto = identificadorUsuarioLogado;
 
 
@@ -118,11 +149,15 @@ public class NovoProdutoActivity extends AppCompatActivity {
 
                 } else {
 
-                    Preferencias preferencias = new Preferencias(NovoProdutoActivity.this);
-                    final String identificadorUsuarioLogado = preferencias.getIdentificador();
 
-                    pessoasPorProdutos2.add("dmljdG9yQGdtYWlsLmNvbQ==");
-                    pessoasPorProdutos2.add(pessoasConsumo);
+                    for(int i=0;i<contatos.size();i++){
+                        if(consumidores.get(i).checked) {
+                            Log.i("PESSOAS", contatos.get(i).getNome());
+                            pessoasPorProdutos2.add(contatos.get(i).getIdentificadorUsuario());
+                        }
+                    }
+
+
 
                     produto = new Produto();
                     produto.setNome(nomeProduto);
@@ -135,9 +170,9 @@ public class NovoProdutoActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot todasContas: dataSnapshot.getChildren()){
-                                codContaFirebase = todasContas.getKey();
+                               // codContaFirebase = todasContas.getKey();
 
-                                firebase.child("contas").child(codContaFirebase).child("produtos").child(idProduto).setValue(produto);
+                                firebase.child("contas").child(codContaGlobal).child("produtos").child(idProduto).setValue(produto);
 
                             }
                         }

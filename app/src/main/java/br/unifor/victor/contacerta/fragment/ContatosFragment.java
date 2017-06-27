@@ -110,12 +110,14 @@ public class ContatosFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         for(DataSnapshot dados: dataSnapshot.getChildren()){
-                            Produto produto1 = dados.getValue(Produto.class);
-                            produtos1.clear();
 
+                            produtos1.clear();
+                            Produto produto1 = dados.getValue(Produto.class);
                             produtos1.add(produto1);
+
                             String x = contatos.get(position).getIdentificadorUsuario();
                             String y = produto1.getIdPessoaProduto().toString();
+
                             List<String> ppp = produto1.getPessoasPorProdutos();
                             numeroPessoasPorPedido = ppp.size();
 
@@ -124,7 +126,8 @@ public class ContatosFragment extends Fragment {
                                 Log.i("*****VALOR DO LIST******", ppp.get(i).toString());
 
                                 if (x.equals(ppp.get(i).toString())){
-                                    contaPessoa2 += Double.parseDouble(produto1.getValor());
+                                   double valorProd = Double.parseDouble(produto1.getValor())/numeroPessoasPorPedido;
+                                    contaPessoa2 += valorProd;
 
                                 }
 
@@ -133,12 +136,13 @@ public class ContatosFragment extends Fragment {
 
 
                             if (x.equals(y)){
-                               contaPessoa += Double.parseDouble(produto1.getValor());
+                                double valorProd = Double.parseDouble(produto1.getValor())/numeroPessoasPorPedido;
+                                contaPessoa += valorProd;
                             }
 
                         }
 
-                        contaPessoa2 = contaPessoa2/numeroPessoasPorPedido;
+                       // contaPessoa2 = contaPessoa2/numeroPessoasPorPedido;
                         contatos.get(position).setValorConta(contaPessoa2);
                         Log.i("*****CONTA POR PESSOA nome******", String.valueOf(contatos.get(position).getNome()));
                         Log.i("*****CONTA POR PESSOA valor******", String.valueOf(contatos.get(position).getValorConta()));

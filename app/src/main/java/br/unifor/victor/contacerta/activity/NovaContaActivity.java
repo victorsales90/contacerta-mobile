@@ -32,9 +32,9 @@ public class NovaContaActivity extends AppCompatActivity {
     EditText editTextNovaConta;
     Button btNovaConta;
     String identificadorConta;
-    private ArrayAdapter adapter;
     private ArrayList<String> contas;
     private ListView listView;
+    private ArrayAdapter adapter;
     private DatabaseReference firebase;
     private DatabaseReference firebase2;
     String identificadorUsuarioLogado;

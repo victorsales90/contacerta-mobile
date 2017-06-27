@@ -2,6 +2,7 @@ package br.unifor.victor.contacerta.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -13,8 +14,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import br.unifor.victor.contacerta.R;
@@ -73,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         firebase = ConfiguracaoFirebase.getFirebase();
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Conta Certa");
         setSupportActionBar(toolbar);
@@ -92,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
 
         Preferencias preferencias = new Preferencias(this);
         identificadorUsuarioLogado = preferencias.getIdentificador();
-
 
 
 
@@ -144,15 +147,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void abrirCadastroProduto() {
 
         Intent it5 = new Intent(MainActivity.this, NovoProdutoActivity.class);
+        it5.putExtra("idconta",codContaGlobal);
         startActivity(it5);
 
+
     }
-
-
 
     private void abrirCadastroContato() {
 
@@ -286,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
         return codContaGlobal;
     }
 
+
     private void abrirCadastroProduto2() {
 
 
@@ -338,9 +341,9 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot todasContas: dataSnapshot.getChildren()){
-                                codContaFirebase = todasContas.getKey();
+                               // codContaFirebase = todasContas.getKey();
 
-                                firebase.child("contas").child(codContaFirebase).child("produtos").child(idProduto).setValue(produto);
+                                firebase.child("contas").child(codContaGlobal).child("produtos").child(idProduto).setValue(produto);
 
                             }
                         }

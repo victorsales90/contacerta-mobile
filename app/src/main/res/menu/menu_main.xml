@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <item android:id="@+id/item_add"
         android:title="@string/item_add"
         android:orderInCategory="500" app:showAsAction="ifRoom"
@@ -25,5 +26,7 @@
     <item android:id="@+id/item_sair"
         android:title="@string/item_sair"
         android:orderInCategory="300" app:showAsAction="never"/>
+
+
 
 </menu>
