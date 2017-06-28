@@ -13,6 +13,7 @@ public class Contato {
     private String email;
     private Double valorConta;
     private boolean checked;
+    private String uid;
 
     public Contato() {
     }
@@ -25,7 +26,7 @@ public class Contato {
         this.identificadorUsuario = identificadorUsuario;
     }
 
-
+    @Exclude
     public boolean isChecked() {
         return checked;
     }
@@ -40,6 +41,14 @@ public class Contato {
 
     public void setValorConta(Double valorConta) {
         this.valorConta = valorConta;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getNome() {

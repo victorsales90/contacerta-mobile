@@ -100,26 +100,16 @@ public class NovaContaActivity extends AppCompatActivity {
                     firebase.child("usuarios").child(identificadorUsuarioLogado).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot dados: dataSnapshot.getChildren()){
 
                                 // recuperar dados do contato a ser adicionado
                                 Usuario usuarioLogad = dataSnapshot.getValue(Usuario.class);
                                 // recuperar identificador usuario logado (base 64)
-                                Preferencias preferencias = new Preferencias(NovaContaActivity.this);
-                                String identificadorUsuarioLogado = preferencias.getIdentificador();
-                                String identificadorUsuarioFire = Base64Custom.codificarParaBase64(usuarioLogad.getEmail());
 
-                                if(identificadorUsuarioFire.equals(identificadorUsuarioLogado)) {
-                                    final Contato contato2 = new Contato();
-                                    contato2.setIdentificadorUsuario(identificadorUsuarioFire);
-                                    contato2.setEmail(usuarioLogad.getEmail());
-                                    contato2.setNome(usuarioLogad.getNome());
-                                    firebase.child("contas").child(codContaFirebase).child("contatos").child(identificadorUsuarioLogado).setValue(contato2);
-
-                                }
-
-                            }
-
+                                final Contato contato = new Contato();
+                                    contato.setIdentificadorUsuario(identificadorUsuarioLogado);
+                                    contato.setEmail(usuarioLogad.getEmail());
+                                    contato.setNome(usuarioLogad.getNome());
+                                    firebase.child("contas").child(codContaFirebase).child("contatos").child(identificadorUsuarioLogado).setValue(contato);
 
                         }
 
